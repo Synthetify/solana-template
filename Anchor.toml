@@ -1,0 +1,15 @@
+[registry]
+url = "https://anchor.projectserum.com"
+
+[provider]
+cluster = "localnet"
+wallet = "~/.config/solana/id.json"
+
+[workspace]
+members = ["programs/template"]
+
+[programs.localnet]
+template = "R9PatsTac3Y3UpC7ihYMMgzAQCe1tXnVvkSQ8DtLWUc"
+
+[scripts]
+test = "ts-mocha -p ./tsconfig.json -t 1000000"
