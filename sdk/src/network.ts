@@ -1,6 +1,6 @@
 export enum Network {
   LOCAL,
-  DEV,
+  DEV
 }
 
 export const getProgramAddress = (network: Network) => {

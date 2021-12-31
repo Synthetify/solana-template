@@ -5,7 +5,7 @@ import { getProgramAddress, Network } from './network'
 
 export { Template, Network, getProgramAddress }
 export interface IWallet {
-  signTransaction(tx: Transaction): Promise<Transaction>
-  signAllTransactions(txs: Transaction[]): Promise<Transaction[]>
+  signTransaction: (tx: Transaction) => Promise<Transaction>
+  signAllTransactions: (txs: Transaction[]) => Promise<Transaction[]>
   publicKey: PublicKey
 }

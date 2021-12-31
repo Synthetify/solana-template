@@ -1,19 +1,18 @@
 import * as anchor from '@project-serum/anchor'
-import { BN, Program, Provider } from '@project-serum/anchor'
+import { Program, Provider } from '@project-serum/anchor'
 import {
   Connection,
   Keypair,
   PublicKey,
   SystemProgram,
   SYSVAR_RENT_PUBKEY,
-  Transaction,
+  Transaction
 } from '@solana/web3.js'
 import { IWallet } from '.'
 
 import { Template as TemplateType, IDL } from './idl/template'
-import { getProgramAddress } from './network'
+import { getProgramAddress, Network } from './network'
 
-import { Network } from './network'
 import { signAndSend } from './utils'
 export const SEED = 'Template'
 const STATE_SEED = 'statev1'
@@ -58,9 +57,10 @@ export class Template {
     )
     return {
       programAuthority,
-      nonce,
+      nonce
     }
   }
+
   async getStateAddress() {
     const [address, bump] = await PublicKey.findProgramAddress(
       [Buffer.from(anchor.utils.bytes.utf8.encode(STATE_SEED))],
@@ -68,9 +68,10 @@ export class Template {
     )
     return {
       address,
-      bump,
+      bump
     }
   }
+
   async createStateInstruction(admin: PublicKey) {
     const { programAuthority, nonce } = await this.getProgramAuthority()
     const { address, bump } = await this.getStateAddress()
@@ -81,8 +82,8 @@ export class Template {
         admin,
         programAuthority: programAuthority,
         rent: SYSVAR_RENT_PUBKEY,
-        systemProgram: SystemProgram.programId,
-      },
+        systemProgram: SystemProgram.programId
+      }
     })
   }
 
@@ -90,6 +91,7 @@ export class Template {
     const ix = await this.createStateInstruction(admin.publicKey)
     await signAndSend(new Transaction().add(ix), [admin], this.connection)
   }
+
   async getState() {
     const address = (await this.getStateAddress()).address
     return (await this.program.account.state.fetch(address)) as State

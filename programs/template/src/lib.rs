@@ -4,15 +4,11 @@ mod interfaces;
 mod structs;
 
 use anchor_lang::prelude::*;
-use anchor_spl::token;
 
-use errors::ErrorCode;
-use errors::*;
 use instructions::*;
-use structs::*;
 
 declare_id!("R9PatsTac3Y3UpC7ihYMMgzAQCe1tXnVvkSQ8DtLWUc");
-const SEED: &str = "Template";
+// const SEED: &str = "Template";
 
 #[program]
 pub mod template {

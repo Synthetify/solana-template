@@ -4,16 +4,16 @@ import {
   Keypair,
   Connection,
   ConfirmOptions,
-  sendAndConfirmRawTransaction,
+  sendAndConfirmRawTransaction
 } from '@solana/web3.js'
 
 export const signAndSend = async (
   tx: Transaction,
-  signers: Array<Keypair>,
+  signers: Keypair[],
   connection: Connection,
   opts?: ConfirmOptions
 ) => {
-  tx.setSigners(...signers.map((s) => s.publicKey))
+  tx.setSigners(...signers.map(s => s.publicKey))
   const blockhash = await connection.getRecentBlockhash(
     opts?.commitment || Provider.defaultOptions().commitment
   )
@@ -23,5 +23,5 @@ export const signAndSend = async (
   return await sendAndConfirmRawTransaction(connection, rawTx, opts || Provider.defaultOptions())
 }
 export const sleep = async (ms: number) => {
-  return new Promise((resolve) => setTimeout(resolve, ms))
+  return await new Promise(resolve => setTimeout(resolve, ms))
 }
